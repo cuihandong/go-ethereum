@@ -264,7 +264,8 @@ func ValidateHeader(config *params.ChainConfig, pow pow.PoW, header *types.Heade
 // given the parent block's time and difficulty.
 func CalcDifficulty(config *params.ChainConfig, time, parentTime uint64, parentNumber, parentDiff *big.Int) *big.Int {
 	if config.IsHomestead(new(big.Int).Add(parentNumber, common.Big1)) {
-		return calcDifficultyHomestead(time, parentTime, parentNumber, parentDiff)
+		return calcDifficultyHomesteadLangma(time, parentTime, parentNumber, parentDiff)
+		//return calcDifficultyHomestead(time, parentTime, parentNumber, parentDiff)
 	} else {
 		return calcDifficultyFrontier(time, parentTime, parentNumber, parentDiff)
 	}
@@ -317,6 +318,10 @@ func calcDifficultyHomestead(time, parentTime uint64, parentNumber, parentDiff *
 	}
 
 	return x
+}
+
+func calcDifficultyHomesteadLangma(time, parentTime uint64, parentNumber, parentDiff *big.Int) *big.Int {
+	return calcDifficultyFrontier(time, parentTime, parentNumber, parentDiff);
 }
 
 func calcDifficultyFrontier(time, parentTime uint64, parentNumber, parentDiff *big.Int) *big.Int {
